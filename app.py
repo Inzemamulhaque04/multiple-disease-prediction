@@ -21,7 +21,19 @@ parkinsons_model = load_model("parkinsons_model.pkl")
 
 st.sidebar.title("🏥 Disease Prediction")
 st.sidebar.markdown("---")
-page = st.sidebar.radio("Select a disease to predict:", ["🏠 Home", "❤️ Heart Disease", "🩸 Diabetes", "🧠 Parkinson's Disease"])
+
+# ── Session state for navigation ─────────────────────────────────────────────
+if "page" not in st.session_state:
+    st.session_state.page = "🏠 Home"
+
+PAGES = ["🏠 Home", "❤️ Heart Disease", "🩸 Diabetes", "🧠 Parkinson's Disease"]
+page = st.sidebar.radio(
+    "Select a disease to predict:",
+    PAGES,
+    index=PAGES.index(st.session_state.page),
+)
+st.session_state.page = page
+
 st.sidebar.markdown("---")
 st.sidebar.info("**About**\n\nThis app uses Machine Learning (Random Forest) to predict the likelihood of three diseases based on medical parameters.")
 
@@ -34,12 +46,21 @@ if page == "🏠 Home":
     with col1:
         st.markdown("### ❤️ Heart Disease")
         st.markdown("Predicts the risk of heart disease based on 13 clinical features such as age, cholesterol, blood pressure, and ECG results.")
+        if st.button("Go to Heart Disease →", key="btn_heart", use_container_width=True):
+            st.session_state.page = "❤️ Heart Disease"
+            st.rerun()
     with col2:
         st.markdown("### 🩸 Diabetes")
         st.markdown("Predicts diabetes using 8 features from the PIMA Indians dataset including glucose level, BMI, and insulin.")
+        if st.button("Go to Diabetes →", key="btn_diabetes", use_container_width=True):
+            st.session_state.page = "🩸 Diabetes"
+            st.rerun()
     with col3:
         st.markdown("### 🧠 Parkinson's Disease")
         st.markdown("Detects Parkinson's disease from 22 biomedical voice measurement features such as jitter, shimmer, and HNR.")
+        if st.button("Go to Parkinson's →", key="btn_park", use_container_width=True):
+            st.session_state.page = "🧠 Parkinson's Disease"
+            st.rerun()
     st.markdown("---")
     st.warning("⚠️ **Disclaimer:** This tool is for educational purposes only. Always consult a qualified medical professional for diagnosis and treatment.")
 

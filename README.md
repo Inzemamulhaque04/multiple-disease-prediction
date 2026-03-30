@@ -68,12 +68,6 @@ User Input → ML Model → Prediction → Result Display
 
 ---
 
-## 📸 Screenshots
-
-*(Add screenshots here after deployment)*
-
----
-
 ## ⚠️ Disclaimer
 
 This application is intended for **educational purposes only** and should not be used as a substitute for professional medical advice.
